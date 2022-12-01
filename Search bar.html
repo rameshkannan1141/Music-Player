@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200" />
+
+    <link rel="stylesheet" href="Search bar.css">
+
+   
+    <title>Search Bar</title>
+</head>
+<body onload="create_Songs_Divs()">
+
+    <div class="Whole-Wrapper">
+
+        <div class="header">
+            <h1>Music</h1>
+            <button type="button" id="search-btn" onclick="Search_bar()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+            </button>
+
+        </div> 
+
+        <div class="Movie-Name-Search">
+
+            <button type="button" class="Movie-Name" onclick="create_listenAgain_div()" >All</button>
+
+        </div>
+      
+        <div class="listem-again-wrapper">
+            <h2>Selections</h2>
+            
+            <div class="listen-again">
+                
+            </div>
+             
+        </div>
+
+        <h2>All Songs</h2>
+
+        <div class="songs-collectons">
+           
+
+         </div>
+
+    </div>
+
+    <div class="Search-page">
+
+        <div class="SP-Header">
+            <button type="button" id="search-btn" onclick="">
+
+                <span id="SP-search"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                  </svg></span>
+                
+                
+
+              <input type="text" name="" placeholder="Search Musics" id="SP-inp" oninput="typed_Input()">
+
+              <span id="SP-close" onclick="sp_Close()" >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"  fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+              </svg></span>
+              
+            
+        </div>
+
+        <div class="searched-Songs">
+
+        </div>
+
+    </div>
+
+
+    <div class="Song-Palying-Page">
+
+        <video loop autoplay muted plays-inline  id="bg-video">
+            <source src="bg video.mp4" type="video/mp4">
+           </video>
+
+
+        <div class="SPP-Close-div">
+            <span id="SPP-close"  >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"  fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </span>
+
+        </div>
+
+        <div class="img-Name-Parent">
+
+            <div class="img-Name-wrap play">
+                <img src="love today.jpg" class="img-disk" id="SPP-img">
+                <h2 class="music-name">Ennai Vittu</h2>
+                <p class="artist-name">Yuvan</p>
+            </div>
+
+        </div>
+
+        <div class="song-Control-Wrap">
+
+            <div class="song-slider">
+                <input type="range" value="0" id="seek-bar">
+                <span class="current-time">00:00</span>
+                <span class="song-duration">00:00</span>
+
+            </div>
+
+            <div class="play-pause-div">
+
+                <button class="btn backward-btn">
+                    <span class="material-symbols-outlined">
+                        first_page
+                        </span>
+                </button>
+                
+                <button class="play-Btn pause">
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <button class="btn forward-btn">
+                    <span class="material-symbols-outlined">
+                        last_page
+                        </span>
+                </button>
+
+            </div>
+            
+        </div>
+
+        <audio  id="audio"></audio>
+
+    </div>
+    
+</body>
+<script src="Search bar.js"></script>
+</html>
