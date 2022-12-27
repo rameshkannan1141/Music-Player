@@ -309,8 +309,8 @@ if(PLAY_PAUSE_BTN.className.includes('pause')){
     if(MUSIC.play()!==undefined){
         MUSIC.play();
     }else{
-        // setMusic(nowSelected_Song);
-        MUSIC.pause();
+        setMusic(nowSelected_Song);
+        
     }
 
 VIDEO.play();
@@ -360,8 +360,8 @@ if (duration_formatTime(MUSIC.duration) != 0 && duration_formatTime(MUSIC.durati
     console.log("if in "+SONG_DURATION.innerText);
 
 }else{
-    //  setMusic(nowSelected_Song);
-    MUSIC.pause();
+    setMusic(nowSelected_Song);
+    
     }
 
 }else{
@@ -376,8 +376,8 @@ if (duration_formatTime(MUSIC.duration) != 0 && duration_formatTime(MUSIC.durati
     console.log("if in "+SONG_DURATION.innerText);
 
 }else{
-    // setMusic(nowSelected_Song);
-    MUSIC.pause();
+    setMusic(nowSelected_Song);
+    
 }
     },1500);
 
@@ -389,8 +389,8 @@ MUSIC.pause();
 if(MUSIC.play()!==undefined){
     MUSIC.play();
 }else{
-    // setMusic(nowSelected_Song);
-    MUSIC.pause();
+    setMusic(nowSelected_Song);
+    
 }
 
 }
@@ -571,8 +571,8 @@ const playingMusic = ()=>{
     if(MUSIC.play()!==undefined){
         MUSIC.play();
     }else{
-        // setMusic(nowSelected_Song);
-        MUSIC.pause();
+        setMusic(nowSelected_Song);
+        
     }
 
 VIDEO.play();
