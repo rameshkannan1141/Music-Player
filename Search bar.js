@@ -1,8 +1,6 @@
 
 
 
-
-
 let contents = [["love today.jpg","Ennai Vittu","Sid Sriram","Love Today","1","Ennai-Vittu-MassTamilan.dev.mp3"],
 ["love today.jpg","Pacha Elai","Mathichiyam Bala","Love Today","2","Pacha-Elai-MassTamilan.dev.mp3"],
 ["love today.jpg","Saachittale","Yuvanshankar Raja","Love Today","3","Saachitale-MassTamilan.dev.mp3"],
@@ -72,8 +70,6 @@ let contents = [["love today.jpg","Ennai Vittu","Sid Sriram","Love Today","1","E
 ["Meesaya Murukku.jpg","Vaadi Pulla Vaadi","HipHop Tamizha","Meesaya Murukku","58","Vaadi-Pulla-Vaadi--From-Meesaya-Murukku--Hiphop-Tamizha.mp3"],
 
 ];
-
-
 
 
 
@@ -278,9 +274,6 @@ SEARCHED_SONGS.innerHTML = store_SearchedSongs;
 // Song Playing page.................
 
 
-
-
-
 let currentSong = 0;
 const MUSIC = document.querySelector("#audio");
 const VIDEO = document.querySelector("#bg-video");
@@ -301,23 +294,22 @@ const BACKWARD_BTN = document.querySelector(".backward-btn");
 const FORWARD_BTN = document.querySelector(".forward-btn");
 
 
+// function fetchMusicAnd_Play(){
+
+// }
 
 
 PLAY_PAUSE_BTN.addEventListener('click',()=>{
 if(PLAY_PAUSE_BTN.className.includes('pause')){
 
-    if(MUSIC.play()!==undefined){
-        MUSIC.play();
-    }else{
-        setMusic(nowSelected_Song);
-        
-    }
+    
+    MUSIC.play();
 
-VIDEO.play();
-}else{
-MUSIC.pause();
-VIDEO.pause();
-}
+    VIDEO.play();
+    }else{
+    MUSIC.pause();
+    VIDEO.pause();
+    }
 
 
 
@@ -327,14 +319,20 @@ IMG_DISK.classList.toggle('play');
 
 })
 
+
+
+
+var currentSong_src;
 var nowSelected_Song;
+
 
 const setMusic = (arr) =>{
 
+    console.log("After Dur "+MUSIC.duration);
+
 SEEK_BAR.value==0;
 
-MUSIC.src = arr[0][5];
-console.log(MUSIC.play());
+currentSong_src = MUSIC.src;
 
 SONG_NAME.innerText=arr[0][1];
 ARTIST_NAME.innerText=arr[0][2];
@@ -342,58 +340,52 @@ IMG_DISK.src=arr[0][0]
 
 CURRENT_TIME.innerHTML="00:00";
 
-setTimeout(() =>{
-
-console.log("bef => "+MUSIC.duration);
 
 
-
-
-if(String(MUSIC.duration) != "NaN"){
-
-SEEK_BAR.max = MUSIC.duration;
-
-if (duration_formatTime(MUSIC.duration) != 0 && duration_formatTime(MUSIC.duration) != NaN  && String(duration_formatTime(MUSIC.duration)) != "NaN:NaN" ) {
-    
-    SONG_DURATION.innerText = duration_formatTime(MUSIC.duration);
-
-    console.log("if in "+SONG_DURATION.innerText);
-
-}else{
-    setMusic(nowSelected_Song);
-    
-    }
-
-}else{
-    
-    setTimeout(()=>{
+    setTimeout(() =>{
+        console.log("bef => "+ MUSIC.duration );
+        
+        if(String(MUSIC.duration) != "NaN"){
+        
         SEEK_BAR.max = MUSIC.duration;
+        
+        if (duration_formatTime(MUSIC.duration) != 0 && duration_formatTime(MUSIC.duration) != NaN  && String(duration_formatTime(MUSIC.duration)) != "NaN:NaN" ) {
+            
+            SONG_DURATION.innerText = duration_formatTime(MUSIC.duration);
+        
+            console.log("if in "+SONG_DURATION.innerText);
+            clickCount = 0;
+        
+        }
+        
+        }else{
+            
+        setTimeout(()=>{
+                 SEEK_BAR.max = MUSIC.duration;
+        
+         if (duration_formatTime(MUSIC.duration) != 0 && duration_formatTime(MUSIC.duration) != NaN  && String(duration_formatTime(MUSIC.duration)) != "NaN:NaN" ) {
+            
+             SONG_DURATION.innerText = duration_formatTime(MUSIC.duration);
+        
+             console.log("if in "+SONG_DURATION.innerText);
+             
+             clickCount = 0;
+        
+         }else{
+             setMusic(nowSelected_Song) ;
+            
+         }
+          },1500);
+        
+        }
 
-if (duration_formatTime(MUSIC.duration) != 0 && duration_formatTime(MUSIC.duration) != NaN  && String(duration_formatTime(MUSIC.duration)) != "NaN:NaN" ) {
-    
-    SONG_DURATION.innerText = duration_formatTime(MUSIC.duration);
+        
+        },300);
 
-    console.log("if in "+SONG_DURATION.innerText);
+      
 
-}else{
-    setMusic(nowSelected_Song);
-    
-}
-    },1500);
 
-}
-
-},300);
-
-MUSIC.pause();
-if(MUSIC.play()!==undefined){
-    MUSIC.play();
-}else{
-    setMusic(nowSelected_Song);
-    
-}
-
-}
+    }
 
 
 
@@ -457,12 +449,15 @@ const SPP = document.querySelector(".Song-Palying-Page");
 const SP_CLOSE = document.querySelector("#SPP-close");
 
 let currentMusic ;
+var clickCount = 0 ;
 
 function song_Click(song){
+
 currentMusic = Number(song.id);
 
 let selectedSong = contents.filter(function(element){
 return element[4] == song.id;
+
 });
 
 
@@ -475,9 +470,20 @@ SPP.style.transition="1s";
 
 
 // console.log(currentMusic);
-setMusic(selectedSong);
+// setMusic(selectedSong);
+
+MUSIC.src = selectedSong[0][5];
+
+if(clickCount==0){
+    setTimeout(function(){
+        select_setMusic(selectedSong);
+        clickCount = 1 ; 
+    });
+}
+clickCount = 1 ; 
+
 nowSelected_Song = selectedSong;
-playingMusic();
+// playingMusic();
 
 }
 
@@ -499,6 +505,7 @@ VIDEO.pause();
 
 
 FORWARD_BTN.addEventListener('click',()=>{
+    
 // console.log(currentMusic);
 if(currentMusic <= contents.length-1){
 console.log(++currentMusic);
@@ -509,10 +516,20 @@ currentMusic = 1;
 let selectedSong = contents.filter(function(element){
 return element[4] == currentMusic;
 });
+
 // console.log(currentMusic);
-setMusic(selectedSong);
+// setMusic(selectedSong);
+MUSIC.src = selectedSong[0][5];
+if(clickCount==0){
+    setTimeout(function(){
+        select_setMusic(selectedSong);
+        clickCount = 1 ; 
+    });
+}
+
+
 nowSelected_Song=selectedSong;
-playingMusic();
+// playingMusic();
 
 })  
 
@@ -532,16 +549,38 @@ let selectedSong = contents.filter(function(element){
 return element[4] == currentMusic;
 });
 // console.log(currentMusic);
-setMusic(selectedSong);
+
+// setMusic(selectedSong);
+MUSIC.src = selectedSong[0][5];
+
+if(clickCount==0){
+
+    setTimeout(function(){
+        select_setMusic(selectedSong);
+        clickCount = 1 ; 
+    });
+   
+}
+
+
 nowSelected_Song=selectedSong;
-playingMusic();
+// playingMusic();
 
 
 })
 
+function select_setMusic(selectedSong){
 
+    console.log(MUSIC.duration);
+   
+    setTimeout(function(){
+        setMusic(selectedSong);
+        
+    },1000);
 
-
+    playingMusic();
+    
+}
 
 setInterval(()=>{
 
@@ -568,14 +607,28 @@ MUSIC.currentTime = SEEK_BAR.value;
 
 
 const playingMusic = ()=>{
-    if(MUSIC.play()!==undefined){
-        MUSIC.play();
-    }else{
-        setMusic(nowSelected_Song);
-        
-    }
+
+fetchAudioAndPlay();
 
 VIDEO.play();
 PLAY_PAUSE_BTN.classList.remove("pause"); 
 IMG_DISK.classList.add('play');
+
 }
+
+function fetchAudioAndPlay() {
+    console.log(`${currentSong_src}`);
+
+    fetch(`${currentSong_src}`)
+    .then(response => response.blob())
+    .then(blob => {
+      MUSIC.srcObject = blob;
+      return MUSIC.play();
+    })
+    .then(_ => {
+      // Video playback started ;)
+    })
+    .catch(e => {
+      // Video playback failed ;(
+    })
+  }
